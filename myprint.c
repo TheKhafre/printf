@@ -9,14 +9,14 @@
 
 int _printf(const char *format, ...)
 {
-    int char_count = 0;  /* this will track and return the number of characters printed */
+    int char_count = 0; /* this will track and return the number of characters printed */
     va_list fmt_string;
 
     /* if the argument we recieve is an invalid character
     or empty this code will immediately
     terminate the program with a -1 return value */
-    if(format == NULL)
-        return -1;
+    if (format == NULL)
+        return (-1);
 
     /*==================START RECEIVING ARGUMENT FROM USER===================*/
     va_start(fmt_string, format);
@@ -74,7 +74,7 @@ int _printf(const char *format, ...)
                 break;
 
             default:
-                write(1, "*", 1); /* Handle unknown specifiers */
+                write(1, "*", 1);    /* Handle unknown specifiers */
                 write(1, format, 1); /* And then the unknown specifier itself */
                 char_count += 2;
             }
@@ -84,4 +84,3 @@ int _printf(const char *format, ...)
     va_end(fmt_string);
     return char_count;
 }
-
