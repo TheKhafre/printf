@@ -7,31 +7,30 @@
  * formated output based on the character that follows
  */
 
-
-
 int _printf(const char *format, ...)
 {
-    int char_count = 0; // this will track and return the number of characters printed
+    int char_count = 0;  /* this will track and return the number of characters printed */
     va_list fmt_string;
 
-    if (format == NULL)
+    /* if the argument we recieve is an invalid character
+    or empty this code will immediately
+    terminate the program with a -1 return value */
+    if(format == NULL)
         return -1;
 
     /*==================START RECEIVING ARGUMENT FROM USER===================*/
     va_start(fmt_string, format);
 
-    for (; *format; format++) // THIS WILL ITERATE THROUGH ALL THE CHARACTERS ENTERED
+    for (; *format; format++) /* THIS WILL ITERATE THROUGH ALL THE CHARACTERS ENTERED */
     {
-        /* if the argument we recieve is an invalid character or empty
-        this code will immediately terminate the program with a -1 return value */
         if (*format != '%')
         {
             write(1, format, 1);
             char_count++;
         }
-        else // checks if the character entered is %
+        else /* checks if the character entered is % */
         {
-            format++; // this skips the % and check the next data in front of the %
+            format++; /* this skips the % and check the next data in front of the % */
             if (*format == '\0')
                 break;
 
@@ -49,10 +48,10 @@ int _printf(const char *format, ...)
             case 'i':
             {
                 int num = va_arg(fmt_string, int);
-                char num_str[12]; // Enough to hold any int value
+                char num_str[12]; /* Enough to hold any int value */
                 int len = intconvert(num, num_str);
                 write(1, num_str, len);
-                char_count += len - 1; // Adjust for incrementing later on
+                char_count += len - 1; /* Adjust for incrementing later on */
                 break;
             }
 
@@ -65,7 +64,7 @@ int _printf(const char *format, ...)
                     string_len++;
 
                 write(1, str, string_len);
-                char_count += string_len - 1; // Adjust for incrementing later on
+                char_count += string_len - 1; /* Adjust for incrementing later on */
                 break;
             }
 
@@ -75,8 +74,8 @@ int _printf(const char *format, ...)
                 break;
 
             default:
-                write(1, " ", 1);    // Handle unknown specifiers by printing a literal string/char
-                write(1, format, 1); // And then the unknown specifier itself
+                write(1, "*", 1); /* Handle unknown specifiers */
+                write(1, format, 1); /* And then the unknown specifier itself */
                 char_count += 2;
             }
         }
